@@ -11,8 +11,7 @@
     ],
     "background": {
         "scripts": [
-            "kir.js",
-            "hot-reload.js"
+            "kir.js"
         ]
     }
 }
