@@ -12,13 +12,9 @@ function rewriteUrl(url) {
 
             if (url.pathname.startsWith('/trac/kirikiri/changeset/')) {
                 // GitHub APIで対応するコミットを検索し、コミットページに転送する
+                // ここではasync functionが使えないっぽいので、別のページを表示して、そのページからリダイレクトする
                 const changesetId = url.pathname.replace(/^(\/trac\/kirikiri\/changeset\/)/, '');
-                const searchResponse = searchGitHubCommit(`"git-svn-id: svn://localhost@${changesetId} "`);
-                if(searchResponse.total_count === 1) {
-                    return `https://github.com/krkrz/krkr2/commit/${searchResponse.items[0].sha}`;
-                } else if(searchResponse.total_count > 1) {
-                    return `https://github.com/krkrz/krkr2/search?type=Commits&q=${encodeURIComponent('"git-svn-id: svn://localhost@' + changesetId + ' "')}`;
-                }
+                return chrome.extension.getURL(`ChangesetToGitHub.html#${changesetId}`);
             }
             break;
         case 'devdoc.kikyou.info':
@@ -52,10 +48,3 @@ chrome.webRequest.onBeforeRequest.addListener(
     },
     ["blocking"]);
 
-async function searchGitHubCommit(query) {
-    return await fetch(`https://api.github.com/search/commits?q=${encodeURIComponent(query)}`, {
-        headers: {
-            Accept: 'application/vnd.github.cloak-preview'
-        }
-    }).then(response => response.json())
-}
