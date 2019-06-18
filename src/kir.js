@@ -14,7 +14,7 @@ function rewriteUrl(url) {
                 // GitHub APIで対応するコミットを検索し、コミットページに転送する
                 // ここではasync functionが使えないっぽいので、別のページを表示して、そのページからリダイレクトする
                 const changesetId = url.pathname.replace(/^(\/trac\/kirikiri\/changeset\/)/, '');
-                return chrome.extension.getURL(`ChangesetToGitHub.html#${changesetId}`);
+                return `https://stmkza.github.io/kikyou-info-redirector/ChangesetToGitHub.html#${changesetId}`;
             }
             break;
         case 'devdoc.kikyou.info':

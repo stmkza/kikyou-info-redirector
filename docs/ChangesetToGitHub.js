@@ -1,9 +1,5 @@
 const changesetId = location.hash.substr(1);
-goToGitHubPage();
-
-async function goToGitHubPage() {
-    chrome.tabs.update({url: await kirikiriChangesetIdToGitHub(changesetId)});
-}
+goToGitHubPage(changesetId);
 
 async function searchGitHubCommit(query) {
     return await (await fetch(`https://api.github.com/search/commits?q=${encodeURIComponent(query)}`, {
@@ -20,4 +16,8 @@ async function kirikiriChangesetIdToGitHub(changesetId) {
     } else if (searchResponse.total_count > 1) {
         return `https://github.com/krkrz/krkr2/search?type=Commits&q=${encodeURIComponent('"git-svn-id: svn://localhost@' + changesetId + ' "')}`;
     }
+}
+
+async function goToGitHubPage(changesetId) {
+    location.replace(await kirikiriChangesetIdToGitHub(changesetId));
 }
