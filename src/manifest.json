@@ -1,0 +1,18 @@
+{
+    "name": "Kikyou Info Redirector",
+    "description": "kikyou.infoの吉里吉里関連URLを移転先URLに置き換えます",
+    "version": "1.0",
+    "manifest_version": 2,
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "*://*.kikyou.info/*",
+        "*://kikyou.info/*"
+    ],
+    "background": {
+        "scripts": [
+            "kir.js",
+            "hot-reload.js"
+        ]
+    }
+}
